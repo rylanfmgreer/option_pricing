@@ -11,10 +11,14 @@ class Vanilla_BS_I_CallOption: public I_Option
     protected:
     Vanilla_BS_I_CallOption(OptionDouble p_K, OptionDouble p_r,
             OptionDouble p_vol, OptionDouble p_ttm);
-    
     virtual OptionDouble price(OptionDouble p_S) const;
+    virtual OptionDouble calculate_delta(OptionDouble p_S) const;
+    virtual OptionDouble calculate_gamma(OptionDouble p_S) const;
+
+
     OptionDouble price_call(OptionDouble p_S) const;
-    
+    OptionDouble call_delta(OptionDouble p_S) const;
+
     const OptionDouble m_K;
     const OptionDouble m_r;
     const OptionDouble m_vol;
@@ -22,9 +26,6 @@ class Vanilla_BS_I_CallOption: public I_Option
     OptionDouble m_var;
     OptionDouble m_sqrt_ttm;
     OptionDouble m_kert;
-    
-    
-    
 
     private:
     virtual OptionDouble calculate_discount_factor(OptionDouble p_T) const;
@@ -40,6 +41,8 @@ class Vanilla_BS_I_PutOption: public Vanilla_BS_I_CallOption
     using Vanilla_BS_I_CallOption::Vanilla_BS_I_CallOption;
     friend class Vanilla_BS_PutOption;
     virtual OptionDouble price(OptionDouble p_S) const;
+    virtual OptionDouble calculate_delta(OptionDouble p_S) const;
+
 };
 
 

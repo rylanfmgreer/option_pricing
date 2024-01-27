@@ -9,6 +9,16 @@ Vanilla_BS_CallOption::Vanilla_BS_CallOption(OptionDouble p_K, OptionDouble p_r,
         m_iopt = this_ptr;
     }
 
+OptionDouble Vanilla_BS_CallOption::calculate_delta(OptionDouble p_S) const
+{
+    return m_iopt->calculate_delta(p_S);
+}
+
+OptionDouble Vanilla_BS_CallOption::calculate_gamma(OptionDouble p_S) const
+{
+    return m_iopt->calculate_delta(p_S);
+}
+
 Vanilla_BS_PutOption::Vanilla_BS_PutOption(OptionDouble p_K, OptionDouble p_r,
             OptionDouble p_vol, OptionDouble p_ttm)
     {
