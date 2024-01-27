@@ -3,45 +3,45 @@
 #include "../../i_option.hpp"
 #include <boost/math/distributions/normal.hpp>
 
-class Vanilla_BS_I_CallOption: public I_Option
+class VanillaBSEuropeanCall_I_Option: public I_Option
 {
-    friend class Vanilla_BS_I_PutOption;
-    friend class Vanilla_BS_CallOption;
+    friend class VanillaBSEuropeanPut_I_Option;
+    friend class VanillaBSEuropeanCall_Option;
 
     protected:
-    Vanilla_BS_I_CallOption(OptionDouble p_K, OptionDouble p_r,
-            OptionDouble p_vol, OptionDouble p_ttm);
-    virtual OptionDouble price(OptionDouble p_S) const;
-    virtual OptionDouble calculate_delta(OptionDouble p_S) const;
-    virtual OptionDouble calculate_gamma(OptionDouble p_S) const;
+    VanillaBSEuropeanCall_I_Option(OptDouble p_K, OptDouble p_r,
+            OptDouble p_vol, OptDouble p_ttm);
+    virtual OptDouble price(OptDouble p_S) const;
+    virtual OptDouble calculate_delta(OptDouble p_S) const;
+    virtual OptDouble calculate_gamma(OptDouble p_S) const;
 
 
-    OptionDouble price_call(OptionDouble p_S) const;
-    OptionDouble call_delta(OptionDouble p_S) const;
+    OptDouble price_call(OptDouble p_S) const;
+    OptDouble call_delta(OptDouble p_S) const;
 
-    const OptionDouble m_K;
-    const OptionDouble m_r;
-    const OptionDouble m_vol;
-    const OptionDouble m_ttm;
-    OptionDouble m_var;
-    OptionDouble m_sqrt_ttm;
-    OptionDouble m_kert;
+    const OptDouble m_K;
+    const OptDouble m_r;
+    const OptDouble m_vol;
+    const OptDouble m_ttm;
+    OptDouble m_var;
+    OptDouble m_sqrt_ttm;
+    OptDouble m_kert;
 
     private:
-    virtual OptionDouble calculate_discount_factor(OptionDouble p_T) const;
-    OptionDouble calc_d1(OptionDouble p_S) const;
-    OptionDouble calc_d2(OptionDouble p_d1) const;
+    virtual OptDouble calculate_discount_factor(OptDouble p_T) const;
+    OptDouble calc_d1(OptDouble p_S) const;
+    OptDouble calc_d2(OptDouble p_d1) const;
     void precalculate();
-    Vanilla_BS_I_CallOption();
+    VanillaBSEuropeanCall_I_Option();
 };
 
-class Vanilla_BS_I_PutOption: public Vanilla_BS_I_CallOption
+class VanillaBSEuropeanPut_I_Option: public VanillaBSEuropeanCall_I_Option
 {
     protected:
-    using Vanilla_BS_I_CallOption::Vanilla_BS_I_CallOption;
-    friend class Vanilla_BS_PutOption;
-    virtual OptionDouble price(OptionDouble p_S) const;
-    virtual OptionDouble calculate_delta(OptionDouble p_S) const;
+    using VanillaBSEuropeanCall_I_Option::VanillaBSEuropeanCall_I_Option;
+    friend class VanillaBSEuropeanPut_Option;
+    virtual OptDouble price(OptDouble p_S) const;
+    virtual OptDouble calculate_delta(OptDouble p_S) const;
 
 };
 
