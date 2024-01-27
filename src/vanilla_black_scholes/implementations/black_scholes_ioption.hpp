@@ -5,33 +5,40 @@
 
 class Vanilla_BS_I_CallOption: public I_Option
 {
-    public:
+    friend class Vanilla_BS_I_PutOption;
+    friend class Vanilla_BS_CallOption;
+
+    protected:
     Vanilla_BS_I_CallOption(OptionDouble p_K, OptionDouble p_r,
             OptionDouble p_vol, OptionDouble p_ttm);
+    
     virtual OptionDouble price(OptionDouble p_S) const;
-    friend class Vanilla_BS_I_PutOption;
-    virtual OptionDouble calculate_discount_factor(OptionDouble p_T) const;
+    OptionDouble price_call(OptionDouble p_S) const;
     
-    OptionDouble get_strike() const {return m_K; }
-    OptionDouble get_rate() const {return m_r; }
-    OptionDouble get_vol() const { return m_vol; }
-    OptionDouble get_ttm() const { return m_ttm; }
-    
-    protected:
-    OptionDouble m_K;
-    OptionDouble m_r;
-    OptionDouble m_vol;
-    OptionDouble m_ttm;
+    const OptionDouble m_K;
+    const OptionDouble m_r;
+    const OptionDouble m_vol;
+    const OptionDouble m_ttm;
     OptionDouble m_var;
     OptionDouble m_sqrt_ttm;
-    OptionDouble price_call(OptionDouble p_S) const;
+    OptionDouble m_kert;
+    
+    
+    
+
+    private:
+    virtual OptionDouble calculate_discount_factor(OptionDouble p_T) const;
     OptionDouble calc_d1(OptionDouble p_S) const;
     OptionDouble calc_d2(OptionDouble p_d1) const;
+    void precalculate();
+    Vanilla_BS_I_CallOption();
 };
 
 class Vanilla_BS_I_PutOption: public Vanilla_BS_I_CallOption
 {
+    protected:
     using Vanilla_BS_I_CallOption::Vanilla_BS_I_CallOption;
+    friend class Vanilla_BS_PutOption;
     virtual OptionDouble price(OptionDouble p_S) const;
 };
 
