@@ -7,7 +7,7 @@
 class Option
 {
     public:
-    virtual OptionDouble price(OptionDouble p_S);
+    virtual OptDouble price(OptDouble p_S);
     std::shared_ptr<I_Option> m_iopt;
 };
 
