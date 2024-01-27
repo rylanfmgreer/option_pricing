@@ -6,17 +6,19 @@
 
 class BlackScholesExplicit_I_Option: public I_Option
 {
+    public:
+    virtual OptDouble calculate_discount_factor(OptDouble p_T) const { return exp(-m_r * p_T); }
+
     friend class VanillaBSEuropeanCall_Option;
+    friend class VanillaBSEuropeanCallPDE_Option;
     friend class VanillaBSEuropeanPut_Option;
 
-    public:
-    BlackScholesExplicit_I_Option(OptDouble p_K, OptDouble p_vol, OptDouble p_r, OptDouble p_ttm);
-
     protected:
-    virtual OptDouble price(OptDouble p_S) const{ return p_S; }
-    virtual OptDouble calculate_delta(OptDouble p_S) const { return 0.; }
-    virtual OptDouble calculate_gamma(OptDouble p_S) const { return 0.; }
-    virtual OptDouble calculate_discount_factor(OptDouble p_S) const { return 0.; }
+    BlackScholesExplicit_I_Option(OptDouble p_K, OptDouble p_r, OptDouble p_vol, OptDouble p_ttm);
+
+    virtual OptDouble price(OptDouble p_S) const;
+    virtual OptDouble calculate_delta(OptDouble p_S) const;
+    virtual OptDouble calculate_gamma(OptDouble p_S) const;
 
     private:
     std::function<OptDouble (OptDouble)> m_boundary_condition;
@@ -38,7 +40,6 @@ class BlackScholesExplicit_I_Option: public I_Option
     OptDouble m_ds_sq;
     OptDouble m_min_price = 0.;
     OptDouble m_max_price;
-    void calculate_scalars();
 
     // pde solving
     void initialize_calculation_array();
@@ -52,7 +53,7 @@ class BlackScholesExplicit_I_Option: public I_Option
     OptDouble calculate_cim1_term(int i);
     OptDouble calculate_cip1_term(int i);
     OptDouble calc_opt_price_from_theta(int i);
-    void evolve_calc_array_backwards(int p_timestep);
+    void evolve_calc_array_backwards_by_one_timestep(int p_timestep);
     void solve_pde();
 
 

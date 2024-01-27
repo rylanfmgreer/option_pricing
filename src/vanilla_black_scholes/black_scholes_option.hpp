@@ -13,6 +13,13 @@ class VanillaBSEuropeanCall_Option: public Option
 
 };
 
+class VanillaBSEuropeanCallPDE_Option: public VanillaBSEuropeanCall_Option
+{
+    public:
+    VanillaBSEuropeanCallPDE_Option(OptDouble p_K, OptDouble p_r,
+            OptDouble p_vol, OptDouble p_ttm);
+};
+
 class VanillaBSEuropeanPut_Option: public VanillaBSEuropeanCall_Option
 {
     public:
