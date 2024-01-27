@@ -6,6 +6,8 @@ class Test_Utilities
     public:
     void run_all_tests() const;
     bool test_normal_cdf() const;
+    bool test_normal_pdf() const;
+    bool test_to_array() const;
 
     private:
     double m_eps = 1e-4;
