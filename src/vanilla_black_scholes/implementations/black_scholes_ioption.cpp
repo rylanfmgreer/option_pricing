@@ -47,12 +47,31 @@ OptionDouble Vanilla_BS_I_CallOption::calculate_discount_factor(OptionDouble p_T
     return exp(-m_r * p_T);
 }
 
+OptionDouble Vanilla_BS_I_CallOption::call_delta(OptionDouble p_S) const
+{
+    return Utils::normal_cdf(calc_d1(p_S));
+}
+
+OptionDouble Vanilla_BS_I_CallOption::calculate_delta(OptionDouble p_S) const
+{
+    return call_delta(p_S);
+}
+
+OptionDouble Vanilla_BS_I_CallOption::calculate_gamma(OptionDouble p_S) const
+{
+    double pdf_d1 = Utils::normal_pdf(calc_d1(p_S));
+    return pdf_d1 / (p_S * m_vol * m_sqrt_ttm);
+}
 
 OptionDouble Vanilla_BS_I_PutOption::price(OptionDouble p_S) const
 {
     return price_call(p_S) + m_kert - p_S;
 }
 
+OptionDouble Vanilla_BS_I_PutOption::calculate_delta(OptionDouble p_S) const
+{
+    return 1. - call_delta(p_S);
+}
 
 void Vanilla_BS_I_CallOption::precalculate() 
 {

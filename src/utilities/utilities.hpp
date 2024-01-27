@@ -4,6 +4,7 @@
 
 namespace Utils
 {
+    double normal_pdf(double p_z, boost::math::normal* p_dist=nullptr);
     double normal_cdf(double p_z, boost::math::normal* p_dist=nullptr);    
 
 };
