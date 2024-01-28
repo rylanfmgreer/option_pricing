@@ -2,6 +2,7 @@
 #include <cmath>
 #include "utility_tests.hpp"
 #include "../../utilities/utilities.hpp"
+#include "../../utilities/gsl_interface/gsl_interface.hpp"
 #include "../../utilities/interpolation.hpp"
 
 void Test_Utilities::run_all_tests() const
