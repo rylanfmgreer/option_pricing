@@ -53,8 +53,8 @@ bool Test_Utilities::test_to_array() const
 
 bool Test_Utilities::test_gsl_tridiag() const
 {
-    std::vector<OptDouble> diagonal(6, 1);
     std::vector<OptDouble> subdiagonal(5, 2);
+    std::vector<OptDouble> diagonal(6, 1);
     std::vector<OptDouble> superdiagonal(5, 3);
     std::vector<OptDouble> b(6, 1);
 
