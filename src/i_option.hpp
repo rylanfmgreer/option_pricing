@@ -1,8 +1,7 @@
 #ifndef _I_Option_93u492y38942
 #define _I_Option_93u492y38942
+#include "consts.hpp"
 #include <cmath>
-
-typedef double OptDouble;
 
 class I_Option
 {

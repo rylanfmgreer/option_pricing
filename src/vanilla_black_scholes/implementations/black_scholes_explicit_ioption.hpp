@@ -53,7 +53,8 @@ class BlackScholesExplicit_I_Option: public I_Option
     OptDouble calculate_cim1_term(int i);
     OptDouble calculate_cip1_term(int i);
     OptDouble calc_opt_price_from_theta(int i);
-    void evolve_calc_array_backwards_by_one_timestep(int p_timestep);
+    void evolve_calc_array_backwards_by_one_timestep_explicit(int p_timestep);
+    void evolve_calc_array_backwards_by_one_timestep_implicit(int p_timestep);
     void solve_pde();
 
 
