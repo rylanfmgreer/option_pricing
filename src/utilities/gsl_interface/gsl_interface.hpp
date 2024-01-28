@@ -7,12 +7,43 @@
 namespace Utils
 {
     /*
-        Typedef for a GSL vector unique pointer so that
-        we have better resource mgmt.
+        An unique_ptr to a GSL Vector with some useful additions.
     */
-    auto del_GslUP = [](gsl_vector* p) { gsl_vector_free(p); };
-    typedef std::unique_ptr<gsl_vector, decltype(del_GslUP) > GslUP;
+    typedef std::unique_ptr<gsl_vector, decltype(&gsl_vector_free)> _GslUP;
+    class GslUP : public _GslUP
+    {
+        public:
+        using _GslUP::_GslUP;
+        /*
+            Initialize with n spaces.
+        */
+        GslUP(int n=0) : _GslUP(gsl_vector_alloc(n), &gsl_vector_free) {}
 
+        /*
+            Initialize with a vector
+        */
+        GslUP(const std::vector<OptDouble> p_v);
+
+        /*
+            Set value at index p_i to p_v
+        */
+        void set_value(int p_i, OptDouble p_v);
+
+        /*
+            return the value at p_i
+        */
+        OptDouble get_value(int p_i) const;
+
+        /*
+            Turn this into an std::vector
+        */
+        std::vector<OptDouble> to_vector() const;
+
+        /*
+            Convert to a raw ptr
+        */
+        operator gsl_vector*() const { return get(); }
+    };
     /*
         Create an empty GslUP of size n
 
@@ -55,5 +86,7 @@ namespace Utils
         const std::vector<OptDouble> p_superdiagonal, 
         const std::vector<OptDouble> p_b);
 }
+
+  
 
 #endif
