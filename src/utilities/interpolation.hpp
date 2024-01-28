@@ -2,7 +2,7 @@
 #define _interp_hpp_3728273
 #include <vector>
 #include "../consts.hpp"
-
+#include <gsl/gsl_interp.h>
 
 class Interpolation{};
 class Sorted_Interpolation: public Interpolation
@@ -20,6 +20,13 @@ class Sorted_Interpolation: public Interpolation
 
     */
     double interpolate(OptDouble p_x, std::vector<OptDouble> p_known_x, std::vector<OptDouble> p_known_y) const;
+    double gsl_interpolate(OptDouble p_x, std::vector<OptDouble> p_known_x, std::vector<OptDouble> p_known_y) const;
+
+    private:
+    typedef std::unique_ptr<gsl_interp, decltype(&gsl_interp_free)> GSL_interp_ptr;
+    typedef std::unique_ptr<gsl_interp_accel, decltype(&gsl_interp_accel_free)> GSL_interp_accel_ptr;
+    typedef std::unique_ptr<OptDouble[]> Double_arr_ptr;
+
 
 };
 
