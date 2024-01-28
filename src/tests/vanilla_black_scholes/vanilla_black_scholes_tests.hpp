@@ -6,6 +6,7 @@ class Test_VanillaBlackScholes
     public:
     bool basic_call_price_test() const;
     bool basic_put_price_test() const;
+    bool pde_call_test() const;
     void run_all_tests() const;
 
     private:

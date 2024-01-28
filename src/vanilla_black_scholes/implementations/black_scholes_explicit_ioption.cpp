@@ -70,7 +70,7 @@ void BlackScholesExplicit_I_Option::initialize_calculation_array()
     m_calc_array = v;
 }
 
-void BlackScholesExplicit_I_Option::evolve_calc_array_backwards_by_one_timestep(int p_timestep)
+void BlackScholesExplicit_I_Option::evolve_calc_array_backwards_by_one_timestep_explicit(int p_timestep)
 {
     std::vector<OptDouble> new_calc_array(m_calc_array.size());
     for( int i(1); i < m_calc_array.size()-1; ++i )
@@ -87,7 +87,11 @@ void BlackScholesExplicit_I_Option::solve_pde()
 {
     initialize_calculation_array();
     for( int i(0); i < m_N_timesteps; ++i )
-        evolve_calc_array_backwards_by_one_timestep(i);
+        evolve_calc_array_backwards_by_one_timestep_explicit(i);
+}
+
+void BlackScholesExplicit_I_Option::evolve_calc_array_backwards_by_one_timestep_implicit(int p_timestep)
+{
 }
 
 void BlackScholesExplicit_I_Option::initialize_terminal_stock_array()
