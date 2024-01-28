@@ -2,12 +2,13 @@
 #define _option_utils_903248902384902
 #include <boost/math/distributions/normal.hpp>
 #include <vector>
-#include "../consts.hpp"
 #include <gsl/gsl_vector.h>
+#include "../consts.hpp"
 
 namespace Utils
-{
-    typedef std::shared_ptr<gsl_vector, decltype(&gsl_vector_free)> gsl_sp;
+{   
+    auto gsl_sp_del = [](gsl_vector* p) { gsl_vector_free(p); };
+    typedef std::unique_ptr<gsl_vector, decltype(gsl_sp_del) > gsl_up;
 
     /*
         Wrapper function to calculate normal pdf and cdf/
@@ -40,8 +41,8 @@ namespace Utils
         const std::vector<OptDouble> p_superdiagonal, 
         const std::vector<OptDouble> p_b);
     
-    gsl_sp create_gsl_vector_from_std_vector( const std::vector<OptDouble> p_v);
-    std::vector<OptDouble> create_std_vector_from_gsl_vector(const gsl_sp p_p);
+    gsl_up create_gsl_vector_from_std_vector( const std::vector<OptDouble>& p_v);
+    std::vector<OptDouble> create_std_vector_from_gsl_vector(const gsl_up& p_p);
 
 
 };

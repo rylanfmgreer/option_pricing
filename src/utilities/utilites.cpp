@@ -1,7 +1,5 @@
 #include "utilities.hpp"
-#include <gsl/gsl_vector.h>
 #include <gsl/gsl_linalg.h>
-
 
 namespace Utils
 {
@@ -26,18 +24,19 @@ namespace Utils
         return boost::math::cdf(*p_dist, p_z);
     }
 
-    gsl_sp create_gsl_vector_from_std_vector( const std::vector<OptDouble> p_v)
+    gsl_up create_gsl_vector_from_std_vector( const std::vector<OptDouble>& p_v)
     {
-        gsl_sp vp( gsl_vector_alloc(p_v.size() ) );
+        gsl_up vp( gsl_vector_alloc(p_v.size() ), gsl_sp_del);
         for(int i(0); i < p_v.size(); ++i )
-            vp.get()[i] = p_v[i];
+            gsl_vector_set(vp.get(), i, p_v[i]);
         return vp;
     }
-    std::vector<OptDouble> create_std_vector_from_gsl_vector(const gsl_sp p_p)
+    std::vector<OptDouble> create_std_vector_from_gsl_vector(const gsl_up& p_p)
     {
-        std::vector<OptDouble> v(p_p->size());
-        for( int i(0); i < p_p->size(); ++i  )
-            v[i] = p_p.get()[i];
+        int n = p_p->size;
+        std::vector<OptDouble> v(n);
+        for( int i(0); i < n; ++i  )
+            v[i] = gsl_vector_get(p_p.get(), i);
         return v;
     }
     
@@ -47,12 +46,13 @@ namespace Utils
         const std::vector<OptDouble> p_superdiagonal, 
         const std::vector<OptDouble> p_b)
     {
-        gsl_sp subdiagonal = create_gsl_vector_from_std_vector(p_subdiagonal);
-        gsl_sp diagonal = create_gsl_vector_from_std_vector(p_diagonal);
-        gsl_sp superdiagonal = create_gsl_vector_from_std_vector(p_superdiagonal);
-        gsl_sp b = create_gsl_vector_from_std_vector(p_b);
-        gsl_sp x( gsl_vector_alloc(diagonal.size() ));
-        gsl_linalg_solve_tridiag(diagonal.get(), superdiagonal.get(), subdiagonal.get(), b.get(), x.get());
+        gsl_up subdiagonal = create_gsl_vector_from_std_vector(p_subdiagonal);
+        gsl_up diagonal = create_gsl_vector_from_std_vector(p_diagonal);
+        gsl_up superdiagonal = create_gsl_vector_from_std_vector(p_superdiagonal);
+        gsl_up b = create_gsl_vector_from_std_vector(p_b);
+        gsl_up x( gsl_vector_alloc(p_diagonal.size()), gsl_sp_del);
+        gsl_linalg_solve_tridiag(diagonal.get(), superdiagonal.get(),
+            subdiagonal.get(), b.get(), x.get());
         std::vector<OptDouble> v_x = create_std_vector_from_gsl_vector(x);
         return v_x;
     }

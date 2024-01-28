@@ -12,6 +12,7 @@ void Test_Utilities::run_all_tests() const
     std::cout << "Normal PDF test: " << test_normal_cdf() << '\n';
     std::cout << "Array test: " << test_normal_cdf() << '\n';
     std::cout << "Interpolation test: " << test_normal_cdf() << '\n';
+    std::cout << "GSL Tridiag test: " << test_gsl_tridiag() << '\n';
 
     std::cout << '\n';
 
@@ -58,7 +59,7 @@ bool Test_Utilities::test_gsl_tridiag() const
     std::vector<OptDouble> b(6, 1);
 
     std::vector<OptDouble> x = Utils::solve_tridiagonal_system(subdiagonal, diagonal, superdiagonal, b);
-    return true;
+    return  abs(x[4] - 0.9655172413793) < 1e-8;
 
 
 }
