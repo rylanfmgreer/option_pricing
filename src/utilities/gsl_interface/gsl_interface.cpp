@@ -57,7 +57,7 @@ namespace Utils
         GslUP b(p_b);
         GslUP x(p_b.size());
         gsl_linalg_solve_tridiag(diagonal, superdiagonal, subdiagonal, b, x);
-        std::vector<OptDouble> v_x = create_std_vector_from_gsl_vector(x);
+        std::vector<OptDouble> v_x = x.to_vector();
         return v_x;
     }
 };
