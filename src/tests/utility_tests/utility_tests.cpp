@@ -13,6 +13,7 @@ void Test_Utilities::run_all_tests() const
     std::cout << "Normal PDF test: " << test_normal_cdf() << '\n';
     std::cout << "Array test: " << test_normal_cdf() << '\n';
     std::cout << "Interpolation test: " << test_normal_cdf() << '\n';
+    std::cout << "GSL Interpolation test: " << test_normal_cdf() << '\n';
     std::cout << "GSL Tridiag test: " << test_gsl_tridiag() << '\n';
 
     std::cout << '\n';
