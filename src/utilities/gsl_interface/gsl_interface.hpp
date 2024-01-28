@@ -14,11 +14,34 @@ namespace Utils
     {
         public:
         using _GslUP::_GslUP;
+        /*
+            Initialize with n spaces.
+        */
         GslUP(int n=0) : _GslUP(gsl_vector_alloc(n), &gsl_vector_free) {}
+
+        /*
+            Initialize with a vector
+        */
         GslUP(const std::vector<OptDouble> p_v);
+
+        /*
+            Set value at index p_i to p_v
+        */
         void set_value(int p_i, OptDouble p_v);
+
+        /*
+            return the value at p_i
+        */
         OptDouble get_value(int p_i) const;
+
+        /*
+            Turn this into an std::vector
+        */
         std::vector<OptDouble> to_vector() const;
+
+        /*
+            Convert to a raw ptr
+        */
         operator gsl_vector*() const { return get(); }
     };
     /*
