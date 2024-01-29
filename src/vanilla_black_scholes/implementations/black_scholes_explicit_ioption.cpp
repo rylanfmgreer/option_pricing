@@ -17,8 +17,8 @@ BlackScholesExplicit_I_Option::BlackScholesExplicit_I_Option(OptDouble p_K, OptD
 
 OptDouble BlackScholesExplicit_I_Option::price(OptDouble p_S) const
 {
-    return Sorted_Interpolation().interpolate(p_S,
-        m_stock_array, m_calc_array);
+    // todo: make my interpolation more permanent
+    return Interpolation(m_stock_array, m_calc_array).interpolate(p_S);
 }
 
 OptDouble BlackScholesExplicit_I_Option::calculate_delta(OptDouble p_S) const
