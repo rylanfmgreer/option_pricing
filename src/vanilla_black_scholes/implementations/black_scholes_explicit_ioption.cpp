@@ -1,5 +1,4 @@
 #include "black_scholes_explicit_ioption.hpp"
-#include "../../utilities/interpolation.hpp"
 #include <cmath>
 #include <algorithm>
 
@@ -13,12 +12,19 @@ BlackScholesExplicit_I_Option::BlackScholesExplicit_I_Option(OptDouble p_K, OptD
     m_var = m_vol * m_vol;
     initialize_terminal_stock_array();
     solve_pde();
+    initialize_interpolation();
+}
+
+void BlackScholesExplicit_I_Option::initialize_interpolation()
+{
+    m_interpolation.reset(
+        new CubicSplineInterpolation(m_stock_array, m_calc_array)
+    );
 }
 
 OptDouble BlackScholesExplicit_I_Option::price(OptDouble p_S) const
 {
-    // todo: make my interpolation more permanent
-    return Interpolation(m_stock_array, m_calc_array).interpolate(p_S);
+    return m_interpolation->interpolate(p_S);
 }
 
 OptDouble BlackScholesExplicit_I_Option::calculate_delta(OptDouble p_S) const
