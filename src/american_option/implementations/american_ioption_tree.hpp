@@ -6,12 +6,12 @@
 class AmericanTree_I_Option : public I_Option
 {
     public:
-    AmericanTree_I_Option(OptDouble p_S0, OptDouble p_K, 
+    AmericanTree_I_Option(OptDouble p_K, 
         OptDouble p_vol, OptDouble p_r, OptDouble p_T, int p_n_timesteps);
-    virtual OptDouble price(OptDouble p_S) const{ return m_prices[0]; }
+    virtual OptDouble price(OptDouble p_S);
     virtual OptDouble calculate_discount_factor(OptDouble p_T) const { return exp(-m_r * p_T); }
     virtual OptDouble calculate_delta(OptDouble p_T){ return 0.0; }
-
+    virtual OptDouble calculate_gama(OptDouble x){ return 0.0; }
 
     private:
     typedef std::vector<OptDouble> odv;

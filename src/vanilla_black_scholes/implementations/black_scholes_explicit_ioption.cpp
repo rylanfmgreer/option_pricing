@@ -27,13 +27,13 @@ OptDouble BlackScholesExplicit_I_Option::price(OptDouble p_S)
     return m_interpolation->interpolate(p_S);
 }
 
-OptDouble BlackScholesExplicit_I_Option::calculate_delta(OptDouble p_S) const
+OptDouble BlackScholesExplicit_I_Option::calculate_delta(OptDouble p_S)
 {
     auto below = std::upper_bound(m_calc_array.begin(), m_calc_array.end(), p_S);
     auto above = below + 1;
     return (*above - *below) / m_ds;
 }
-OptDouble BlackScholesExplicit_I_Option::calculate_gamma(OptDouble p_S) const
+OptDouble BlackScholesExplicit_I_Option::calculate_gamma(OptDouble p_S)
 {
     auto mid = std::upper_bound(m_calc_array.begin(), m_calc_array.end(), p_S);
     OptDouble gam = ( *(mid+1) + *(mid-1) - 2.0 * (*mid));

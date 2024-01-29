@@ -1,35 +1,43 @@
 #include "american_ioption_tree.hpp"
 #include "../../consts.hpp"
 #include <cmath>
-AmericanTree_I_Option::AmericanTree_I_Option(OptDouble p_S0, OptDouble p_K, 
+#include <cassert>
+
+AmericanTree_I_Option::AmericanTree_I_Option(OptDouble p_K, 
         OptDouble p_vol, OptDouble p_r, OptDouble p_T, int p_n_timesteps)
-        : m_S0(p_S0), m_K(p_K), m_vol(p_vol), m_r(p_r), m_T(p_T), m_n_timesteps(p_n_timesteps)
+        :m_K(p_K), m_vol(p_vol), m_r(p_r), m_T(p_T), m_n_timesteps(p_n_timesteps)
         {
             m_dt = m_T / (double)m_n_timesteps;
             m_discount_factor = calculate_discount_factor(m_dt);
 
-            m_up_factor = exp(m_dt * m_vol);
-            m_down_factor = exp(-m_dt * m_vol);
-            m_rnp_up = (m_r - m_down_factor) / (m_up_factor - m_down_factor);
+            m_up_factor = exp(sqrt(m_dt) * m_vol);
+            m_down_factor = exp(-sqrt(m_dt) * m_vol);
+            m_rnp_up = (1.0 + m_r * m_dt - m_down_factor) / (m_up_factor - m_down_factor);
             m_rnp_down = 1. - m_rnp_up;
             m_rnp_up = m_discount_factor * m_rnp_up;
             m_rnp_down = m_discount_factor * m_rnp_down;
-            compute_pricing();
         }
 
 void AmericanTree_I_Option::compute_pricing()
 {
     create_stock_price_array();
     create_final_timestep();
-    for( int i(m_n_timesteps); i < 0; --i)
+    for( int i(m_n_timesteps); i > 0; --i)
         evolve_array_backwards(i);
+    assert( m_prices.size() == 1 );
 }
+double AmericanTree_I_Option::price(OptDouble p_S)
+{
+    m_S0 = p_S;
+    compute_pricing();
+    return m_prices.front();
 
+}
 void AmericanTree_I_Option::create_stock_price_array()
 {
     odv this_stock_vector(1, m_S0);
     m_stock_vectors.push_back(this_stock_vector);
-    for(size_t i(2); i < m_n_timesteps + 1; ++i)
+    for(size_t i(2); i < m_n_timesteps + 2; ++i)
     {
         odv new_stock_vector(i);
         std::transform(this_stock_vector.begin(), this_stock_vector.end(),
@@ -82,4 +90,5 @@ void AmericanTree_I_Option::calculate_best_of_continuation_vs_stock(int i)
         {
             return std::max(cv, S - this->m_K);
         });
+    m_prices = new_prices;
 }
