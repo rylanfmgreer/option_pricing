@@ -13,7 +13,6 @@ void Test_Utilities::run_all_tests() const
     std::cout << "Normal PDF test: " << test_normal_cdf() << '\n';
     std::cout << "Array test: " << test_normal_cdf() << '\n';
     std::cout << "Interpolation test: " << test_normal_cdf() << '\n';
-    std::cout << "GSL Interpolation test: " << test_normal_cdf() << '\n';
     std::cout << "GSL Tridiag test: " << test_gsl_tridiag() << '\n';
 
     std::cout << '\n';
@@ -38,7 +37,8 @@ bool Test_Utilities::test_interpolation() const
 {
     std::vector<double> x{0, 1};
     std::vector<double> y{3, 5};
-    return abs(Sorted_Interpolation().interpolate(0.5, x, y) - 4.0) < m_eps;
+    Interpolation interp(x, y);
+    return abs(interp.interpolate(0.5) - 4.0) < m_eps;
 
 }
 
@@ -64,10 +64,3 @@ bool Test_Utilities::test_gsl_tridiag() const
     return  abs(x[4] - 0.9655172413793) < 1e-8;
 }
 
-bool Test_Utilities::test_gsl_interpolation() const
-{
-    std::vector<double> x{0, 1};
-    std::vector<double> y{3, 5};
-    return abs(Sorted_Interpolation().gsl_interpolate(0.5, x, y) - 4.0) < m_eps;
-
-}
