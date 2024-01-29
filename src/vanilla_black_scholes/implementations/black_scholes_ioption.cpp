@@ -11,7 +11,7 @@ VanillaBSEuropeanCall_I_Option::VanillaBSEuropeanCall_I_Option(
 }
 
 
-OptDouble VanillaBSEuropeanCall_I_Option::price(OptDouble p_S) const
+OptDouble VanillaBSEuropeanCall_I_Option::price(OptDouble p_S)
 {
     return price_call(p_S);
 }
@@ -63,7 +63,7 @@ OptDouble VanillaBSEuropeanCall_I_Option::calculate_gamma(OptDouble p_S) const
     return pdf_d1 / (p_S * m_vol * m_sqrt_ttm);
 }
 
-OptDouble VanillaBSEuropeanPut_I_Option::price(OptDouble p_S) const
+OptDouble VanillaBSEuropeanPut_I_Option::price(OptDouble p_S)
 {
     return price_call(p_S) + m_kert - p_S;
 }

@@ -11,7 +11,7 @@ class VanillaBSEuropeanCall_I_Option: public I_Option
     protected:
     VanillaBSEuropeanCall_I_Option(OptDouble p_K, OptDouble p_r,
             OptDouble p_vol, OptDouble p_ttm);
-    virtual OptDouble price(OptDouble p_S) const;
+    virtual OptDouble price(OptDouble p_S);
     virtual OptDouble calculate_delta(OptDouble p_S) const;
     virtual OptDouble calculate_gamma(OptDouble p_S) const;
 
@@ -40,7 +40,7 @@ class VanillaBSEuropeanPut_I_Option: public VanillaBSEuropeanCall_I_Option
     protected:
     using VanillaBSEuropeanCall_I_Option::VanillaBSEuropeanCall_I_Option;
     friend class VanillaBSEuropeanPut_Option;
-    virtual OptDouble price(OptDouble p_S) const;
+    virtual OptDouble price(OptDouble p_S);
     virtual OptDouble calculate_delta(OptDouble p_S) const;
 
 };

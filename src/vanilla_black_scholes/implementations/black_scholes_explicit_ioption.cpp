@@ -22,7 +22,7 @@ void BlackScholesExplicit_I_Option::initialize_interpolation()
     );
 }
 
-OptDouble BlackScholesExplicit_I_Option::price(OptDouble p_S) const
+OptDouble BlackScholesExplicit_I_Option::price(OptDouble p_S)
 {
     return m_interpolation->interpolate(p_S);
 }
