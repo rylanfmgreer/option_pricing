@@ -17,9 +17,9 @@ class BlackScholesExplicit_I_Option: public I_Option
     protected:
     BlackScholesExplicit_I_Option(OptDouble p_K, OptDouble p_r, OptDouble p_vol, OptDouble p_ttm);
 
-    virtual OptDouble price(OptDouble p_S) const;
-    virtual OptDouble calculate_delta(OptDouble p_S) const;
-    virtual OptDouble calculate_gamma(OptDouble p_S) const;
+    virtual OptDouble price(OptDouble p_S);
+    virtual OptDouble calculate_delta(OptDouble p_S);
+    virtual OptDouble calculate_gamma(OptDouble p_S);
 
     private:
     std::function<OptDouble (OptDouble)> m_boundary_condition;

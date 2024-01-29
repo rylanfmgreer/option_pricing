@@ -11,7 +11,7 @@ VanillaBSEuropeanCall_I_Option::VanillaBSEuropeanCall_I_Option(
 }
 
 
-OptDouble VanillaBSEuropeanCall_I_Option::price(OptDouble p_S) const
+OptDouble VanillaBSEuropeanCall_I_Option::price(OptDouble p_S)
 {
     return price_call(p_S);
 }
@@ -52,23 +52,23 @@ OptDouble VanillaBSEuropeanCall_I_Option::call_delta(OptDouble p_S) const
     return Utils::normal_cdf(calc_d1(p_S));
 }
 
-OptDouble VanillaBSEuropeanCall_I_Option::calculate_delta(OptDouble p_S) const
+OptDouble VanillaBSEuropeanCall_I_Option::calculate_delta(OptDouble p_S)
 {
     return call_delta(p_S);
 }
 
-OptDouble VanillaBSEuropeanCall_I_Option::calculate_gamma(OptDouble p_S) const
+OptDouble VanillaBSEuropeanCall_I_Option::calculate_gamma(OptDouble p_S)
 {
     double pdf_d1 = Utils::normal_pdf(calc_d1(p_S));
     return pdf_d1 / (p_S * m_vol * m_sqrt_ttm);
 }
 
-OptDouble VanillaBSEuropeanPut_I_Option::price(OptDouble p_S) const
+OptDouble VanillaBSEuropeanPut_I_Option::price(OptDouble p_S)
 {
     return price_call(p_S) + m_kert - p_S;
 }
 
-OptDouble VanillaBSEuropeanPut_I_Option::calculate_delta(OptDouble p_S) const
+OptDouble VanillaBSEuropeanPut_I_Option::calculate_delta(OptDouble p_S)
 {
     return 1. - call_delta(p_S);
 }
