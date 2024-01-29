@@ -82,7 +82,7 @@ void AmericanTree_I_Option::calculate_continuation_values()
 
 void AmericanTree_I_Option::calculate_best_of_continuation_vs_stock(int i)
 {
-    odv this_stock_vector = m_stock_vectors[m_stock_vectors.size() - i - 1];
+    odv this_stock_vector = m_stock_vectors[i];
     odv new_prices(m_continuation_values.size());
     std::transform(m_continuation_values.begin(), m_continuation_values.end(), 
         this_stock_vector.begin(), new_prices.begin(),
