@@ -3,6 +3,7 @@
 #include <vector>
 #include "../../i_option.hpp"
 #include "../black_scholes_option.hpp"
+#include "../../utilities/interpolation.hpp"
 
 class BlackScholesExplicit_I_Option: public I_Option
 {
@@ -22,7 +23,8 @@ class BlackScholesExplicit_I_Option: public I_Option
 
     private:
     std::function<OptDouble (OptDouble)> m_boundary_condition;
-    
+    std::unique_ptr<CubicSplineInterpolation> m_interpolation;
+    void initialize_interpolation();
     // hardcoded for now... TODO fix!
     unsigned int m_N_timesteps = 2000;
     unsigned int m_N_stock_points = 200;
