@@ -15,7 +15,7 @@ AmericanTree_I_Option::AmericanTree_I_Option(OptDouble p_K,
 
             m_up_factor = exp(sqrt(m_dt) * m_vol);
             m_down_factor = exp(-sqrt(m_dt) * m_vol);
-            m_rnp_up = (1.0 + m_r * m_dt - m_down_factor) / (m_up_factor - m_down_factor);
+            m_rnp_up = ((1.0 + m_r * m_dt) - m_down_factor) / (m_up_factor - m_down_factor);
             m_rnp_down = 1. - m_rnp_up;
             m_rnp_up = m_discount_factor * m_rnp_up;
             m_rnp_down = m_discount_factor * m_rnp_down;

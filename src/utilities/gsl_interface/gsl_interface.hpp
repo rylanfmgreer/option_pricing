@@ -4,6 +4,8 @@
 #include <gsl/gsl_vector.h>
 #include "../../consts.hpp"
 
+typedef std::unique_ptr<OptDouble[]> Double_arr_ptr;
+
 namespace Utils
 {
     /*
@@ -85,6 +87,7 @@ namespace Utils
         const std::vector<OptDouble> p_diagonal,
         const std::vector<OptDouble> p_superdiagonal, 
         const std::vector<OptDouble> p_b);
+
 }
 
   

@@ -19,7 +19,7 @@ bool Test_AmericanaBlackScholes::basic_call_price_test() const
 
 bool Test_AmericanaBlackScholes::basic_put_price_test() const
 {
-    AmericanPutOption option(10., 0.4, 0.05, 0.25, 1000);
+    AmericanPutOption option(10., 0.4, 0.05, 0.25, 1);
     OptDouble test_val = option.price(10.);
     OptDouble desired_val = 0.740784946763085;
     return abs(test_val - desired_val) < 1e-3;

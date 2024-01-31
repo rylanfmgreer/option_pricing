@@ -2,7 +2,9 @@
 #define _interp_hpp_3728273
 #include <vector>
 #include "../consts.hpp"
+#include "gsl_interface/gsl_interface.hpp"
 #include <gsl/gsl_interp.h>
+
 
 class Interpolation
 {
@@ -29,7 +31,6 @@ class Interpolation
     typedef std::unique_ptr<gsl_interp_accel, decltype(&gsl_interp_accel_free)> GSL_interp_accel_ptr;
     GSL_interp_accel_ptr m_interp_accel;
 
-    typedef std::unique_ptr<OptDouble[]> Double_arr_ptr;
     Double_arr_ptr m_xa;
     Double_arr_ptr m_ya;
 
