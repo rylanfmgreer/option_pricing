@@ -24,6 +24,17 @@ namespace Utils
         return boost::math::cdf(*p_dist, p_z);
     }
 
-    
+    bool is_power_of_two(int x)
+    {
+        while(x > 1)
+        {
+            std::div_t division_result = std::div(x, 2);
+            if(division_result.rem > 0)
+                return false;
+        }
+        return true;
+            
+
+    }
 
 };

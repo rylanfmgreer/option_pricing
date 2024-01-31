@@ -33,6 +33,7 @@ namespace Utils
         return arr;
     }
 
+    bool is_power_of_two(int x);
 
 
 

@@ -4,15 +4,18 @@
 #include <cassert>
 
 AmericanTree_I_Option::AmericanTree_I_Option(OptDouble p_K, 
-        OptDouble p_vol, OptDouble p_r, OptDouble p_T, int p_n_timesteps)
-        :m_K(p_K), m_vol(p_vol), m_r(p_r), m_T(p_T), m_n_timesteps(p_n_timesteps)
+        OptDouble p_vol, OptDouble p_r, OptDouble p_T,
+        int p_n_timesteps, bool p_is_call)
+        :m_K(p_K), m_vol(p_vol), m_r(p_r), m_T(p_T),
+        m_n_timesteps(p_n_timesteps), m_is_call(p_is_call)
         {
+            m_condition_scalar = m_is_call ? 1 : -1;
             m_dt = m_T / (double)m_n_timesteps;
             m_discount_factor = calculate_discount_factor(m_dt);
 
             m_up_factor = exp(sqrt(m_dt) * m_vol);
             m_down_factor = exp(-sqrt(m_dt) * m_vol);
-            m_rnp_up = (1.0 + m_r * m_dt - m_down_factor) / (m_up_factor - m_down_factor);
+            m_rnp_up = ((1.0 + m_r * m_dt) - m_down_factor) / (m_up_factor - m_down_factor);
             m_rnp_down = 1. - m_rnp_up;
             m_rnp_up = m_discount_factor * m_rnp_up;
             m_rnp_down = m_discount_factor * m_rnp_down;
@@ -55,8 +58,9 @@ void AmericanTree_I_Option::create_final_timestep()
     odv new_vector(m_n_timesteps + 1);
     odv final_stock_vector = m_stock_vectors.back();
     std::transform(final_stock_vector.begin(), final_stock_vector.end(), 
-        new_vector.begin(), [this]( double x )
-        { return std::max(x - this->m_K, 0.); });
+        new_vector.begin(), [this]( double S )
+        { return std::max(
+            this->m_condition_scalar * (S - this->m_K), 0.); });
 
     m_prices = new_vector;
 }
@@ -87,8 +91,7 @@ void AmericanTree_I_Option::calculate_best_of_continuation_vs_stock(int i)
     std::transform(m_continuation_values.begin(), m_continuation_values.end(), 
         this_stock_vector.begin(), new_prices.begin(),
         [this](OptDouble cv, OptDouble S)
-        {
-            return std::max(cv, S - this->m_K);
-        });
+        { return std::max(cv, this->m_condition_scalar * (S - this->m_K)); }
+    );
     m_prices = new_prices;
 }

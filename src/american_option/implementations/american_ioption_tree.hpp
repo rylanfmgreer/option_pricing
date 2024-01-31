@@ -7,7 +7,8 @@ class AmericanTree_I_Option : public I_Option
 {
     public:
     AmericanTree_I_Option(OptDouble p_K, 
-        OptDouble p_vol, OptDouble p_r, OptDouble p_T, int p_n_timesteps);
+        OptDouble p_vol, OptDouble p_r, OptDouble p_T, int p_n_timesteps, 
+        bool p_is_call=true);
     virtual OptDouble price(OptDouble p_S);
     virtual OptDouble calculate_discount_factor(OptDouble p_T) const { return exp(-m_r * p_T); }
     virtual OptDouble calculate_delta(OptDouble p_T){ return 0.0; }
@@ -29,7 +30,8 @@ class AmericanTree_I_Option : public I_Option
     OptDouble m_vol;
     OptDouble m_r;
     OptDouble m_T;
-
+    bool m_is_call;
+    short int m_condition_scalar;
 
     OptDouble m_dt;
     OptDouble m_up_factor;

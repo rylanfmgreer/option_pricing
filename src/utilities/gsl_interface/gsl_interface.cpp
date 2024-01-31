@@ -1,6 +1,9 @@
 
 #include "gsl_interface.hpp"
 #include <gsl/gsl_linalg.h>
+#include <gsl/gsl_fft_real.h>
+#include <gsl/gsl_complex.h>
+#include "../utilities.hpp"
 
 namespace Utils
 {
@@ -60,4 +63,6 @@ namespace Utils
         std::vector<OptDouble> v_x = x.to_vector();
         return v_x;
     }
+
+
 };
