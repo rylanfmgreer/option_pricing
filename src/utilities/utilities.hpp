@@ -33,6 +33,16 @@ namespace Utils
         return arr;
     }
 
+    template<typename T>
+    std::vector<T> array_to_vector(const T* p_arr, size_t p_n_elements)
+    {
+        std::vector<T> new_vector;
+        new_vector.reserve(p_n_elements);
+        for(size_t idx; idx<p_n_elements; ++idx)
+            new_vector.push_back( p_arr[idx] );
+        return new_vector;
+    }
+
     bool is_power_of_two(int x);
 
 
