@@ -20,7 +20,7 @@ class Interpolation
         const gsl_interp_type* p_interp_type=gsl_interp_linear);
 
     /*
-        Perform standard linear interpolation.
+        Perform whichever interpolation we chose (default is linear)
 
         :param p_x: the value we want to find an interpolated y for.
         :param p_known_x: the x values we will use to interpolate
@@ -39,15 +39,15 @@ class Interpolation
     GSL_interp_accel_ptr m_interp_accel;
 
     // save down the (x, y) pairs
-    Double_arr_ptr m_xa;
-    Double_arr_ptr m_ya;
+    Double_arr_ptr m_x_array;
+    Double_arr_ptr m_y_array;
 
 };
 
 class LinearInterpolation : public Interpolation
 {
     /*
-        Class for performing Linear interpolation.
+        Class for performing linear interpolation.
     */
     public:
 
@@ -65,7 +65,7 @@ class LinearInterpolation : public Interpolation
 class CubicSplineInterpolation : public Interpolation
 {
     /*
-        Class for performing Cubic Spline interpolation.
+        Class for performing cubic spline interpolation.
     */
     public:
 
