@@ -8,7 +8,13 @@
 
 class Interpolation
 {
-    public: 
+    public:
+    /*
+        Initialize.
+
+        :param p_known_x: the x values of the (x, y) pairs
+        :param p_known_y: the y values of the (x, y) pairs
+    */
     Interpolation(const std::vector<OptDouble> p_known_x,
         const std::vector<OptDouble> p_known_y,
         const gsl_interp_type* p_interp_type=gsl_interp_linear);
@@ -25,12 +31,14 @@ class Interpolation
     double interpolate(OptDouble p_x) const;
 
     private:
+
+    // the gsl objects
     typedef std::unique_ptr<gsl_interp, decltype(&gsl_interp_free)> GSL_interp_ptr;
     GSL_interp_ptr m_interp;
-    
     typedef std::unique_ptr<gsl_interp_accel, decltype(&gsl_interp_accel_free)> GSL_interp_accel_ptr;
     GSL_interp_accel_ptr m_interp_accel;
 
+    // save down the (x, y) pairs
     Double_arr_ptr m_xa;
     Double_arr_ptr m_ya;
 
@@ -38,7 +46,17 @@ class Interpolation
 
 class LinearInterpolation : public Interpolation
 {
+    /*
+        Class for performing Linear interpolation.
+    */
     public:
+
+    /*
+        Initialize.
+
+        :param p_known_x: the x values of the (x, y) pairs
+        :param p_known_y: the y values of the (x, y) pairs
+    */
     LinearInterpolation(const std::vector<OptDouble> p_known_x,
         const std::vector<OptDouble> p_known_y)
     : Interpolation(p_known_x, p_known_y, gsl_interp_linear){}
@@ -46,7 +64,17 @@ class LinearInterpolation : public Interpolation
 
 class CubicSplineInterpolation : public Interpolation
 {
+    /*
+        Class for performing Cubic Spline interpolation.
+    */
     public:
+
+    /*
+        Initialize.
+
+        :param p_known_x: the x values of the (x, y) pairs
+        :param p_known_y: the y values of the (x, y) pairs
+    */
     CubicSplineInterpolation(const std::vector<OptDouble> p_known_x,
         const std::vector<OptDouble> p_known_y)
     : Interpolation(p_known_x, p_known_y, gsl_interp_cspline){}

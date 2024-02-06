@@ -33,6 +33,13 @@ namespace Utils
         return arr;
     }
 
+    /*
+        Turn an array of size p_n_elements into a std::vector.
+
+        :param p_arr: pointer to array
+        :param p_n_elements: size of p_arr
+        :return: vector with same elements
+    */
     template<typename T>
     std::vector<T> array_to_vector(const T* p_arr, size_t p_n_elements)
     {
