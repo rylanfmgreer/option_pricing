@@ -24,7 +24,7 @@ namespace Utils
         /*
             Initialize with a vector
         */
-        GslUP(const std::vector<OptDouble> p_v);
+        GslUP(const std::vector<OptDouble>& p_v);
 
         /*
             Set value at index p_i to p_v
@@ -83,10 +83,10 @@ namespace Utils
         :return: the 'x' in the matrix expression
     */
     std::vector<OptDouble> solve_tridiagonal_system(
-        const std::vector<OptDouble> p_subdiagonal,
-        const std::vector<OptDouble> p_diagonal,
-        const std::vector<OptDouble> p_superdiagonal, 
-        const std::vector<OptDouble> p_b);
+        const std::vector<OptDouble>& p_subdiagonal,
+        const std::vector<OptDouble>& p_diagonal,
+        const std::vector<OptDouble>& p_superdiagonal, 
+        const std::vector<OptDouble>& p_b);
 
 }
 
