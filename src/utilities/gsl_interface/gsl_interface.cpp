@@ -12,7 +12,7 @@ namespace Utils
         gsl_vector_set(get(), i, v);
     }
 
-    GslUP::GslUP(const std::vector<OptDouble> p_v)
+    GslUP::GslUP(const std::vector<OptDouble>& p_v)
     : GslUP(p_v.size())
     {
         for(int i(0); i < p_v.size(); ++i)
@@ -49,10 +49,10 @@ namespace Utils
     }
     
     std::vector<OptDouble> solve_tridiagonal_system(
-        const std::vector<OptDouble> p_subdiagonal,
-        const std::vector<OptDouble> p_diagonal,
-        const std::vector<OptDouble> p_superdiagonal, 
-        const std::vector<OptDouble> p_b)
+        const std::vector<OptDouble>& p_subdiagonal,
+        const std::vector<OptDouble>& p_diagonal,
+        const std::vector<OptDouble>& p_superdiagonal, 
+        const std::vector<OptDouble>& p_b)
     {
         GslUP subdiagonal(p_subdiagonal);
         GslUP diagonal(p_diagonal);
