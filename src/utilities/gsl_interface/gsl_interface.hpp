@@ -3,6 +3,7 @@
 #include <vector>
 #include <gsl/gsl_vector.h>
 #include "../../consts.hpp"
+#include "../complex/complex.hpp"
 
 typedef std::unique_ptr<OptDouble[]> Double_arr_ptr;
 
@@ -88,7 +89,12 @@ namespace Utils
         const std::vector<OptDouble>& p_superdiagonal, 
         const std::vector<OptDouble>& p_b);
 
+    std::vector<Complex> fft(const std::vector<Complex>& p_v);
+    double* unpack_complex_vector_into_complex_array(const std::vector<Complex>& p_v);
+
 }
+
+
 
   
 

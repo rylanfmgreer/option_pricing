@@ -1,5 +1,4 @@
 #include "utilities.hpp"
-#include <gsl/gsl_linalg.h>
 
 namespace Utils
 {
@@ -31,6 +30,7 @@ namespace Utils
             std::div_t division_result = std::div(x, 2);
             if(division_result.rem > 0)
                 return false;
+            x = division_result.quot;
         }
         return true;
             
