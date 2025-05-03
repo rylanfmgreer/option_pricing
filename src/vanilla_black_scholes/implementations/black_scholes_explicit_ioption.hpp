@@ -1,6 +1,7 @@
 #ifndef _black_scholes_explicit_i_option_398294
 #define _black_scholes_explicit_i_option_398294
 #include <vector>
+#include <functional>
 #include "../../i_option.hpp"
 #include "../black_scholes_option.hpp"
 #include "../../utilities/interpolation.hpp"
