@@ -14,6 +14,11 @@ void Test_Utilities::run_all_tests() const
     std::cout << "Array test: " << test_normal_cdf() << '\n';
     std::cout << "Interpolation test: " << test_normal_cdf() << '\n';
     std::cout << "GSL Tridiag test: " << test_gsl_tridiag() << '\n';
+    std::cout << "Complex add test: " << test_complex_addition() << '\n';
+    std::cout << "complex subtract test: " << test_complex_subtraction() << '\n';
+    std::cout << "complex multiply test: " << test_complex_multiplication() << '\n';
+    std::cout << "complex divide test: " << test_complex_division() << '\n';
+
 
     std::cout << '\n';
 
@@ -64,3 +69,34 @@ bool Test_Utilities::test_gsl_tridiag() const
     return  abs(x[4] - 0.9655172413793) < 1e-8;
 }
 
+bool Test_Utilities::test_complex_addition() const
+{
+    Complex c1(1, 2);
+    Complex c2(3, 4);
+    Complex test_val(4, 6);
+    return ((c1 + c2) - test_val).norm() < 1e-8;
+}
+
+bool Test_Utilities::test_complex_subtraction() const
+{
+    Complex c1(1, 2);
+    Complex c2(3, 4);
+    Complex test_val(-2, -2);
+    return ((c1 - c2) - test_val).norm() < 1e-8;
+}
+
+
+bool Test_Utilities::test_complex_multiplication() const
+{
+    Complex c1(1, 2);
+    Complex c2(3, 4);
+    Complex test_val(3 - 8, 4 + 6);
+    return ((c1 * c2) - test_val).norm() < 1e-8;
+}
+
+bool Test_Utilities::test_complex_division() const
+{
+    Complex c2(3, 4);
+    Complex test_val(1, 0);
+    return ((c2 *  c2.invert()) - test_val).norm() < 1e-8;
+}
