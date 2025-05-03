@@ -15,15 +15,19 @@ class Complex
 
     inline Complex add(const Complex& z) const { return Complex(real + z.real, imag + z.imag); }
     inline Complex operator+(const Complex& z) const {return add(z); }
+    inline Complex operator+(double x) const{ return add(Complex(x)); }
 
     inline Complex subtract(const Complex& z) const { return Complex(real - z.real, imag - z.imag); }
     inline Complex operator-(const Complex& z) const {return subtract(z); }
+    inline Complex operator-(double x) const{ return subtract( omplex(x)); }
 
     inline Complex multiply(const Complex& z) const { return Complex(real  * z.real - imag * z.imag, imag * z.real + real * z.imag);}
     inline Complex operator*(const Complex& z) const {return multiply(z); }
+    inline Complex operator*(double x) const {return return multiply(Complex(x)); }
 
     inline Complex divide(const Complex& z) const { return multiply( z.invert()); }
     inline Complex operator/(const Complex& z) const {return divide(z); }
+    inline Complex operator/(double x) const {return divide(Complex(x)); }
 
     inline bool operator==(const Complex& z) const { return (real == z.real) && (imag == z.imag); }
     
